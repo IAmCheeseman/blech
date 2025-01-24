@@ -1,3 +1,5 @@
+local settings = require("settings")
+
 actions = {}
 
 actions.joystick_deadzone = 0.5
@@ -15,18 +17,22 @@ end
 
 function actions.update()
   for action, _ in pairs(actions.defined) do
-    action:update()
+    if not is(action, "string") then
+      action:update()
+    end
   end
 end
 
 Action = class()
 
-function Action:new()
-  self.inputs = {}
+function Action:new(action_name, inputs)
+  self.action_name = action_name
+  self.inputs = settings.keybinds[action_name] or inputs
   self.active = false
   self.just_active = false
 
   actions.defined[self] = true
+  actions.defined[action_name] = self
 end
 
 function Action:update()
@@ -40,11 +46,6 @@ function Action:update()
   else
     self.active = false
   end
-end
-
-function Action:addInput(method, input)
-  table.insert(self.inputs, {method=method, input=input})
-  return self
 end
 
 function Action:isJustActive()

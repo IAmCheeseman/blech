@@ -22,18 +22,20 @@ viewport = Viewport(cam)
 gui = Viewport()
 world = World(cam)
 
-walk_up = Action():addInput("key", "w")
-walk_left = Action():addInput("key", "a")
-walk_down = Action():addInput("key", "s")
-walk_right = Action():addInput("key", "d")
-jump = Action():addInput("key", "space")
-shoot = Action():addInput("mouse", 1)
-rotate_cam_right = Action()
-  :addInput("key", "q")
-  :addInput("mouse", 5)
-rotate_cam_left = Action()
-  :addInput("key", "e")
-  :addInput("mouse", 4)
+walk_up = Action("walk_up", {{method="key", input="w"}})
+walk_left = Action("walk_left", {{method="key", input="a"}})
+walk_down = Action("walk_down", {{method="key", input="s"}})
+walk_right = Action("walk_right", {{method="key", input="d"}})
+jump = Action("jump", {{method="key", input="space"}})
+shoot = Action("shoot", {{method="mouse", input=1}})
+rotate_cam_right = Action("rotate_cam_right", {
+  {method="key", input="q"},
+  {method="mouse", input=5},
+})
+rotate_cam_left = Action("rotate_cam_left", {
+  {method="key", input="e"},
+  {method="mouse", input=4},
+})
 
 for _=1, 100 do
   local x = love.math.random(-500, 500)
