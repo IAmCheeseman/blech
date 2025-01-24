@@ -14,6 +14,8 @@ function Player:new(x, y)
   self.vz = 0
   self.gun_cd = 0.2
   self.gun_cdt = 0
+
+  self.body = PhysicsBody(self, world, shape.offsetRect(-4, -4, 8, 8))
 end
 
 function Player:update(dt)
@@ -40,8 +42,9 @@ function Player:update(dt)
   self.vy = mathx.dtLerp(self.vy, iy * max_speed, friction, dt)
   self.vz = self.vz + 981 * dt
 
-  self.x = self.x + self.vx * dt
-  self.y = self.y + self.vy * dt
+  -- self.x = self.x + self.vx * dt
+  -- self.y = self.y + self.vy * dt
+  self.body:moveAndCollideWithTags(self.vx, self.vy, dt, {"env"})
   self.z = math.min(self.z + self.vz * dt, 0)
 
   cam.x = self.x

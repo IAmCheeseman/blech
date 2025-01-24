@@ -1,4 +1,4 @@
-require("TextureAtlas")
+require("classes.TextureAtlas")
 local loadAse = require("ase")
 
 local chunk_layer_data = 0x2004

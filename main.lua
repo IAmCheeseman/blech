@@ -6,15 +6,11 @@ require("mathx")
 require("tablex")
 require("vec")
 require("class")
-require("World")
-require("Camera")
-require("Cursor")
-require("Player")
-require("Enemy")
-require("Bullet")
-require("TextureAtlas")
-require("Sprite")
-require("Viewport")
+require("shape")
+
+local loadDirectory = require("loadDirectory")
+loadDirectory("classes")
+loadDirectory("objects")
 
 cam = Camera()
 viewport = Viewport(cam)
@@ -38,11 +34,14 @@ for _=1, 100 do
   local x = love.math.random(-500, 500)
   local y = love.math.random(-500, 500)
   local obj = {
+    tags = {"env"},
     x = x,
     y = y,
     frame = love.math.random() > 0.99 and 2 or 1,
     draw = drawTree,
   }
+
+  obj.body = PhysicsBody(obj, world, shape.offsetRect(-8, -8, 16, 16))
   world:add(obj)
 end
 

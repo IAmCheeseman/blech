@@ -7,7 +7,7 @@ function Enemy:new(x, y)
   self.vx = 0
   self.vy = 0
 
-  self.max_speed = 100
+  self.max_speed = 70
   self.accel = 10
 end
 
