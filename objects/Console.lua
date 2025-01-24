@@ -7,6 +7,8 @@ function console.clear()
   console.log = {}
 end
 
+local og_print = print
+
 function console.log(...)
   local console = world:getSingleton("console")
   local text = {...}
@@ -19,6 +21,8 @@ function console.log(...)
   end
 
   console:logText(1, 1, 1, 1, msg)
+
+  og_print(msg)
 end
 
 Console = class()
@@ -84,7 +88,9 @@ function Console:keypressed(key, _, _)
       return
     end
 
+    print = console.log
     local ok, runtime_error = pcall(chunk)
+    print = og_print
     if not ok then
       self:logText(1, 0, 0, 1, runtime_error)
     end
