@@ -17,8 +17,6 @@ viewport = Viewport(cam)
 gui = Viewport()
 world = World(cam)
 
-local north_cam_angle = 0
-
 local tree_sprite = Sprite("assets/tree.ase")
 tree_sprite:offset("center", "bottom")
 
