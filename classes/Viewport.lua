@@ -5,7 +5,7 @@ function Viewport:new(cam)
   self.screenw = 240
   self.screenh = 180
 
-  self.canvas = lg.newCanvas(self.screenw + 1, self.screenh + 1)
+  self.canvas = lg.newCanvas(self.screenw + 2, self.screenh + 2)
 end
 
 function Viewport:_getScreenTrans()
@@ -19,7 +19,7 @@ end
 function Viewport:resize(w, h)
   self.screenw = w
   self.screenh = h
-  self.canvas = lg.newCanvas(w + 1, h + 1)
+  self.canvas = lg.newCanvas(w + 2, h + 2)
 end
 
 function Viewport:screenToWorld(x, y)
@@ -67,9 +67,9 @@ function Viewport:draw()
     _, cx = mathx.modf(cx)
     _, cy = mathx.modf(cy)
     local q = lg.newQuad(
-      cx, cy,
+      1 + cx, 1 + cy,
       self.screenw, self.screenh,
-      self.screenw + 1, self.screenh + 1)
+      self.screenw + 2, self.screenh + 2)
     lg.draw(self.canvas, q, x, y, 0, scale)
   else
     lg.draw(self.canvas, x, y, 0, scale)
