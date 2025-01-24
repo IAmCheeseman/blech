@@ -51,5 +51,4 @@ end
 function Enemy:draw()
   lg.setColor(0, 0, 1)
   lg.rectangle("fill", -4, -8, 8, 8)
-  self.body:draw()
 end

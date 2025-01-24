@@ -7,6 +7,21 @@ function console.clear()
   console.log = {}
 end
 
+function console.mpDrawBody(class)
+  assert(class.draw, "class needs a draw method to monkey patch collision drawing")
+  local old_draw = class.draw
+  class.draw = function(self)
+    old_draw(self)
+    if self.body then
+      self.body:draw()
+    end
+
+    if love.keyboard.isDown("lctrl") and love.keyboard.isDown("l") then
+      class.draw = old_draw
+    end
+  end
+end
+
 local og_print = print
 
 function console.log(...)

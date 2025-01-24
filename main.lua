@@ -35,30 +35,10 @@ rotate_cam_left = Action()
   :addInput("key", "e")
   :addInput("mouse", 4)
 
-local tree_sprite = Sprite("assets/tree.ase")
-tree_sprite:offset("center", "bottom")
-
-local drawTree = function(self)
-  lg.setColor(0, 0, 0, 0.2)
-  lg.ellipse("fill", 0, 2, 12, 4)
-  lg.setColor(1, 1, 1)
-  tree_sprite.frame = self.frame
-  tree_sprite:draw(0, 5)
-end
-
 for _=1, 100 do
   local x = love.math.random(-500, 500)
   local y = love.math.random(-500, 500)
-  local obj = {
-    tags = {"env"},
-    x = x,
-    y = y,
-    frame = love.math.random() > 0.99 and 2 or 1,
-    draw = drawTree,
-  }
-
-  obj.body = PhysicsBody(obj, world, shape.offsetCircle(0, 0, 8))
-  world:add(obj)
+  world:add(Tree(x, y))
 end
 
 for _=1, 10 do
