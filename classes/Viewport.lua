@@ -16,6 +16,12 @@ function Viewport:_getScreenTrans()
   return scale, x, y
 end
 
+function Viewport:resize(w, h)
+  self.screenw = w
+  self.screenh = h
+  self.canvas = lg.newCanvas(w + 1, h + 1)
+end
+
 function Viewport:screenToWorld(x, y)
   local scale, vpx, vpy = self:_getScreenTrans()
 

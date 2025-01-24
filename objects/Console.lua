@@ -104,8 +104,10 @@ function Console:gui()
 
   local font = ui.console_font
 
+  local prompt = ">"
+
   local w, h = gui.screenw, gui.screenh
-  local x, y = 8, h - font:getHeight()
+  local x, y = font:getWidth(prompt) * 2, h - font:getHeight()
 
   local max_w = w - x
   local w_diff = math.min(0, max_w - font:getWidth(self.text))
@@ -116,14 +118,15 @@ function Console:gui()
   lg.rectangle("fill", 0, 0, w, h)
   lg.rectangle("fill", 0, y, w, font:getHeight())
 
+  -- Textinput prompt
+  lg.setColor(0.5, 0.5, 0.5)
+  lg.print(prompt, 1 + w_diff, y)
+
   -- Textinput text
   lg.setColor(1, 1, 1)
   lg.setFont(font)
   lg.print(self.text, x, y)
 
-  -- Textinput prompt
-  lg.setColor(0.5, 0.5, 0.5)
-  lg.print(">", 1 + w_diff, y)
 
   -- Textinput cursor
   if self.cursor_blink > 0.5 then
