@@ -19,13 +19,6 @@ function Camera:update(dt)
   self.rc = mathx.cos(self.r)
   self.rs90 = mathx.sin(self.r + math.pi / 2)
   self.rc90 = mathx.cos(self.r + math.pi / 2)
-
-  if love.keyboard.isDown("=") then
-    self.angle = self.angle + dt
-  end
-  if love.keyboard.isDown("-") then
-    self.angle = mathx.max(self.angle - dt, 1)
-  end
 end
 
 function Camera:flip()
