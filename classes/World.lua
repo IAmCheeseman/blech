@@ -62,6 +62,12 @@ function World:rem(entity)
   local md = self.entitymd[entity]
   assert(md, "cannot remove entity not in world")
 
+  if md.queued_for_deletion then
+    return
+  end
+
+  md.queued_for_deletion = true
+
   if md.queued then
     -- If the object is queued, but not yet added to the world, we shouldn't
     -- fail, rather just remove it from the queue
