@@ -33,9 +33,9 @@ function tablex.print(t, i, ts)
     end
 
     if type(v) == "table" then
-      ts[v] = true
       io.write(" = ")
       tablex.print(v, i + 1, ts)
+      ts[v] = true
       io.write(", \n")
     elseif type(v) == "string" then
       io.write(" = \"" .. v .. "\",\n")
@@ -43,7 +43,7 @@ function tablex.print(t, i, ts)
       io.write(" = " .. tostring(v) .. ",\n")
     end
   end
-  io.write("}")
+  io.write(("\t"):rep(i) .. "}")
   if i == 0 then
     io.write("\n")
   end
