@@ -40,7 +40,7 @@ end
 function Camera:xyOnScreen(x, y)
   local cx, cy = self:p3d(self.x, self.y)
   local sx, sy = self:p3d(x, y)
-  sx = sx - cx + love.graphics.getWidth() / 2
-  sy = sy - cy + love.graphics.getHeight() / 2
+  sx = sx - cx + lg.getWidth() / 2
+  sy = sy - cy + lg.getHeight() / 2
   return sx, sy
 end

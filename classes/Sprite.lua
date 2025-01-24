@@ -39,9 +39,9 @@ function Sprite:_loadAse(path)
 
   local framei = 1
 
-  love.graphics.push()
-  love.graphics.origin()
-  love.graphics.setColor(1, 1, 1)
+  lg.push()
+  lg.origin()
+  lg.setColor(1, 1, 1)
 
   for _, frame in ipairs(file.header.frames) do
     for _, chunk in ipairs(frame.chunks) do
@@ -49,12 +49,12 @@ function Sprite:_loadAse(path)
         local cel = chunk.data
         local buf = love.data.decompress("data", "zlib", cel.data)
         local data = love.image.newImageData(cel.width, cel.height, "rgba8", buf)
-        local img = love.graphics.newImage(data)
-        local canvas = love.graphics.newCanvas(self.width, self.height)
+        local img = lg.newImage(data)
+        local canvas = lg.newCanvas(self.width, self.height)
 
-        love.graphics.setCanvas(canvas)
-        love.graphics.draw(img, cel.x, cel.y)
-        love.graphics.setCanvas()
+        lg.setCanvas(canvas)
+        lg.draw(img, cel.x, cel.y)
+        lg.setCanvas()
 
         local atlas_id = atlas:addTexture(canvas, nil, path .. framei)
         framei = framei + 1
@@ -93,11 +93,11 @@ function Sprite:_loadAse(path)
     end
   end
 
-  love.graphics.pop()
+  lg.pop()
 end
 
 function Sprite:_loadFile(path)
-  local img = love.graphics.newImage(path)
+  local img = lg.newImage(path)
   local atlas_id = atlas:addTexture(img, nil, path)
 
   table.insert(self.frames, {

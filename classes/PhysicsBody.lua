@@ -265,8 +265,8 @@ function PhysicsBody:draw()
     table.insert(vertices, y)
   end
 
-  love.graphics.setColor(1, 0, 0, 0.5)
-  love.graphics.setLineStyle("rough")
-  love.graphics.setLineWidth(1)
-  love.graphics.polygon("line", vertices)
+  lg.setColor(1, 0, 0, 0.5)
+  lg.setLineStyle("rough")
+  lg.setLineWidth(1)
+  lg.polygon("line", vertices)
 end

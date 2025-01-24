@@ -112,25 +112,25 @@ function Console:gui()
   x = x + w_diff
 
   -- Textinput background
-  love.graphics.setColor(0, 0, 0, 0.5)
-  love.graphics.rectangle("fill", 0, 0, w, h)
-  love.graphics.rectangle("fill", 0, y, w, font:getHeight())
+  lg.setColor(0, 0, 0, 0.5)
+  lg.rectangle("fill", 0, 0, w, h)
+  lg.rectangle("fill", 0, y, w, font:getHeight())
 
   -- Textinput text
-  love.graphics.setColor(1, 1, 1)
-  love.graphics.setFont(font)
-  love.graphics.print(self.text, x, y)
+  lg.setColor(1, 1, 1)
+  lg.setFont(font)
+  lg.print(self.text, x, y)
 
   -- Textinput prompt
-  love.graphics.setColor(0.5, 0.5, 0.5)
-  love.graphics.print(">", 1 + w_diff, y)
+  lg.setColor(0.5, 0.5, 0.5)
+  lg.print(">", 1 + w_diff, y)
 
   -- Textinput cursor
   if self.cursor_blink > 0.5 then
     local cursor_x = x + font:getWidth(self.text)
-    love.graphics.setColor(1, 1, 1)
-    love.graphics.setLineWidth(1)
-    love.graphics.line(cursor_x, y, cursor_x, y + font:getHeight())
+    lg.setColor(1, 1, 1)
+    lg.setLineWidth(1)
+    lg.line(cursor_x, y, cursor_x, y + font:getHeight())
   end
 
   -- Log
@@ -138,7 +138,7 @@ function Console:gui()
   local _, wrapped_log = log_font:getWrap(self.log, w)
   local log_h = (#wrapped_log - 1) * log_font:getHeight()
 
-  love.graphics.setColor(1, 1, 1)
-  love.graphics.setFont(log_font)
-  love.graphics.printf(self.log, 0, y - log_h, w, "left")
+  lg.setColor(1, 1, 1)
+  lg.setFont(log_font)
+  lg.printf(self.log, 0, y - log_h, w, "left")
 end

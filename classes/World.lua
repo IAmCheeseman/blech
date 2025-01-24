@@ -184,14 +184,14 @@ function World:draw()
     -- have to correct them
     self.entitymd[entity].index = i
 
-    love.graphics.push()
+    lg.push()
     if not entity.no_transform then
       local dx, dy = self.cam:p3d(entity.x or 0, entity.y or 0, entity.z or 0)
       self.entitymd[entity].zindex = dy
-      love.graphics.translate(mathx.round(dx), mathx.round(dy))
+      lg.translate(mathx.round(dx), mathx.round(dy))
     end
     try(entity.draw, entity)
-    love.graphics.pop()
+    lg.pop()
   end
 end
 

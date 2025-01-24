@@ -31,8 +31,8 @@ function Bullet:update(dt)
 end
 
 function Bullet:draw()
-  love.graphics.setColor(0, 0, 0, 0.2)
-  love.graphics.ellipse("fill", 0, 0, 4, 1)
-  love.graphics.setColor(1, 1, 0)
-  love.graphics.circle("fill", 0, -6, 2)
+  lg.setColor(0, 0, 0, 0.2)
+  lg.ellipse("fill", 0, 0, 4, 1)
+  lg.setColor(1, 1, 0)
+  lg.circle("fill", 0, -6, 2)
 end

@@ -28,6 +28,6 @@ function Enemy:update(dt)
 end
 
 function Enemy:draw()
-  love.graphics.setColor(1, 0, 0)
-  love.graphics.rectangle("fill", -4, -8, 8, 8)
+  lg.setColor(1, 0, 0)
+  lg.rectangle("fill", -4, -8, 8, 8)
 end

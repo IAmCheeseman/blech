@@ -78,9 +78,9 @@ function Player:update(dt)
 end
 
 function Player:draw()
-  love.graphics.setColor(0, 0, 0, 0.2)
-  love.graphics.ellipse("fill", 0, 0, 8, 2)
-  love.graphics.setColor(1, 1, 1)
+  lg.setColor(0, 0, 0, 0.2)
+  lg.ellipse("fill", 0, 0, 8, 2)
+  lg.setColor(1, 1, 1)
   self.sprite:draw(0, self.z, 0, self.sx, 1)
-  love.graphics.line(0, 0, (self.bdx or 0) * 10, (self.bdy or 0) * 10)
+  lg.line(0, 0, (self.bdx or 0) * 10, (self.bdy or 0) * 10)
 end

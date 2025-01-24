@@ -9,6 +9,6 @@ end
 
 function Cursor:gui()
     local x, y = viewport:screenToViewport(love.mouse.getPosition())
-    love.graphics.setColor(1, 1, 1)
+    lg.setColor(1, 1, 1)
     self.sprite:draw(x, y)
 end

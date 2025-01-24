@@ -4,7 +4,7 @@ function TextureAtlas:new(width, height)
   self.width = width
   self.height = height
 
-  self.canvas = love.graphics.newCanvas(width, height)
+  self.canvas = lg.newCanvas(width, height)
 
   self.cache = {}
   self.paths = {}
@@ -55,7 +55,7 @@ end
 function TextureAtlas:newQuad(id, x, y, w, h)
   local c = self.cache[id]
   assert(c, "invalid texture atlas cache id")
-  return love.graphics.newQuad(c.x + x, c.y + y, w, h, self.width, self.height)
+  return lg.newQuad(c.x + x, c.y + y, w, h, self.width, self.height)
 end
 
 function TextureAtlas:addTexture(texture, quad, id)
@@ -64,7 +64,7 @@ function TextureAtlas:addTexture(texture, quad, id)
   end
 
   if is(texture, "string") then
-    texture = love.graphics.newImage(texture)
+    texture = lg.newImage(texture)
   end
 
   local width, height = texture:getDimensions()
@@ -73,15 +73,15 @@ function TextureAtlas:addTexture(texture, quad, id)
   assert(node, "cannot fit image in texture atlas")
 
   self:_split(node, texture, width, height)
-  love.graphics.setCanvas(self.canvas)
+  lg.setCanvas(self.canvas)
   if quad then
-    love.graphics.draw(texture, quad, node.x, node.y)
+    lg.draw(texture, quad, node.x, node.y)
   else
-    love.graphics.draw(texture, node.x, node.y)
+    lg.draw(texture, node.x, node.y)
   end
-  love.graphics.setCanvas()
+  lg.setCanvas()
 
-  local atlasquad = love.graphics.newQuad(
+  local atlasquad = lg.newQuad(
     node.x, node.y,
     width, height,
     self.width, self.height)
@@ -102,11 +102,11 @@ end
 function TextureAtlas:draw(cacheid, quad, x, y, r, sx, sy, ox, oy, kx, ky)
   local cache = self.cache[cacheid]
   assert(cache, "invalid texture atlas cache id")
-  love.graphics.draw(self.canvas, quad or cache.quad, x, y, r, sx, sy, ox, oy, kx, ky)
+  lg.draw(self.canvas, quad or cache.quad, x, y, r, sx, sy, ox, oy, kx, ky)
 end
 
 function TextureAtlas:_draw_Node(node)
-  love.graphics.rectangle("line", node.x, node.y, node.width, node.height)
+  lg.rectangle("line", node.x, node.y, node.width, node.height)
   if node.right then
     self:_draw_Node(node.right)
     self:_draw_Node(node.down)
@@ -114,15 +114,15 @@ function TextureAtlas:_draw_Node(node)
 end
 
 function TextureAtlas:debugDraw()
-  love.graphics.setColor(1, 1, 1)
-  love.graphics.draw(self.canvas, 0, 0)
-  love.graphics.setColor(1, 0, 0)
-  love.graphics.setLineStyle("rough")
+  lg.setColor(1, 1, 1)
+  lg.draw(self.canvas, 0, 0)
+  lg.setColor(1, 0, 0)
+  lg.setLineStyle("rough")
   self:_draw_Node(self.bin)
 end
 
 function TextureAtlas:drawQuad(quad, x, y, r, sx, sy, ox, oy, kx, ky)
-  love.graphics.draw(self.canvas, quad, x, y, r, sx, sy, ox, oy, kx, ky)
+  lg.draw(self.canvas, quad, x, y, r, sx, sy, ox, oy, kx, ky)
 end
 
 return TextureAtlas
