@@ -20,6 +20,19 @@ viewport = Viewport(cam)
 gui = Viewport()
 world = World(cam)
 
+walk_up = Action():addInput("key", "w")
+walk_left = Action():addInput("key", "a")
+walk_down = Action():addInput("key", "s")
+walk_right = Action():addInput("key", "d")
+jump = Action():addInput("key", "space")
+shoot = Action():addInput("mouse", 1)
+rotate_cam_right = Action()
+  :addInput("key", "q")
+  :addInput("mouse", 5)
+rotate_cam_left = Action()
+  :addInput("key", "e")
+  :addInput("mouse", 4)
+
 local tree_sprite = Sprite("assets/tree.ase")
 tree_sprite:offset("center", "bottom")
 
@@ -53,36 +66,56 @@ world:add(Cursor())
 world:add(Console())
 
 function love.update(dt)
+  actions.update()
   cam:update(dt)
   world:update(dt)
+
+  if rotate_cam_left:isJustActive() then
+    cam.target_r = cam.target_r + mathx.pi / 4
+  end
+  if rotate_cam_right:isJustActive() then
+    cam.target_r = cam.target_r - mathx.pi / 4
+  end
+end
+
+function love.keypressed(key, scancode, is_repeat)
+  world:callEvent("keypressed", key, scancode, is_repeat)
+end
+
+function love.keyreleased(key, scancode)
+  world:callEvent("keyreleased", key, scancode)
 end
 
 function love.textinput(text)
   world:callEvent("textinput", text)
 end
 
-function love.wheelmoved(_, y)
-  local m = y > 0 and 1 or -1
-  cam.target_r = cam.target_r + mathx.rad(5) * m
+function love.mousemoved(x, y, dx, dy, is_touch)
+  world:callEvent("mousemoved", x, y, dx, dy, is_touch)
 end
 
-function love.keypressed(key, scancode, is_repeat)
-  if key == "e" and not is_repeat then
-    cam.target_r = cam.target_r + mathx.pi / 4
-  elseif key == "q" and not is_repeat then
-    cam.target_r = cam.target_r - mathx.pi / 4
-  else
-    world:callEvent("keypressed", key, scancode, is_repeat)
-  end
+function love.mousepressed(x, y, button, is_touch, presses)
+  world:callEvent("mousepressed", x, y, button, is_touch, presses)
 end
 
-function love.mousepressed(_, _, button)
-  if button == 5 then
-    cam.target_r = cam.target_r + mathx.pi / 4
-  elseif button == 4 then
-    cam.target_r = cam.target_r - mathx.pi / 4
-  end
+function love.mousereleased(x, y, button, is_touch, presses)
+  world:callEvent("mousereleased", x, y, button, is_touch, presses)
 end
+
+function love.wheelmoved(x, y)
+  world:callEvent("wheelmoved", x, y)
+end
+
+function love.joystickadded(joystick)
+  actions.joystickadded(joystick)
+  world:callEvent("joystickadded", joystick)
+end
+
+function love.joystickremoved(joystick)
+  actions.joystickremoved(joystick)
+  world:callEvent("joystickremoved", joystick)
+end
+
 
 function love.draw()
   viewport:start()

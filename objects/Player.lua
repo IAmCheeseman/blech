@@ -23,13 +23,13 @@ function Player:update(dt)
 
   local friction = 0.2
   if self.z == 0 then
-    if love.keyboard.isDown("w") then iy = iy - 1 end
-    if love.keyboard.isDown("a") then ix = ix - 1 end
-    if love.keyboard.isDown("s") then iy = iy + 1 end
-    if love.keyboard.isDown("d") then ix = ix + 1 end
+    if walk_up:isActive() then iy = iy - 1 end
+    if walk_left:isActive() then ix = ix - 1 end
+    if walk_down:isActive() then iy = iy + 1 end
+    if walk_right:isActive() then ix = ix + 1 end
 
     friction = 10
-    if love.keyboard.isDown("space") then
+    if jump:isJustActive() then
       self.vz = -200
     end
   end
