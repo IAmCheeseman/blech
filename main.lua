@@ -138,7 +138,7 @@ function love.draw()
   world:gui()
 
   do -- compass
-    local w = viewport.screenw
+    local w = gui.screenw
     local compass_r = 8
     local padding = 4
     local dx, dy = w - compass_r - padding, compass_r + padding

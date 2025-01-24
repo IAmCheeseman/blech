@@ -104,7 +104,7 @@ function Console:gui()
 
   local font = ui.console_font
 
-  local w, h = viewport.screenw, viewport.screenh
+  local w, h = gui.screenw, gui.screenh
   local x, y = 8, h - font:getHeight()
 
   local max_w = w - x
