@@ -109,34 +109,43 @@ function love.draw()
   lg.print(("%f ms"):format(1 / love.timer.getFPS() * 1000), 0, 12)
 end
 
-function love.keypressed(key, scancode, is_repeat)
-  world:callEvent("keypressed", key, scancode, is_repeat)
+local love_callbacks = {
+  "directorydropped",
+  "displayrotated",
+  "filedropped",
+  "focus",
+  "mousefocus",
+  "resize",
+  "visible",
+  "keypressed",
+  "keyreleased",
+  "textedited",
+  "textinput",
+  "mousemoved",
+  "mousepressed",
+  "mousereleased",
+  "wheelmoved",
+  "gamepadaxis",
+  "gamepadpressed",
+  "gamepadreleased",
+  "joystickadded",
+  "joystickaxis",
+  "joystickhat",
+  "joystickpressed",
+  "joystickreleased",
+  "joystickremoved",
+  "touchmoved",
+  "touchpressed",
+  "touchreleased",
+}
+
+for _, callback in ipairs(love_callbacks) do
+  love[callback] = function(...)
+    world:callEvent(callback, ...)
+  end
 end
 
-function love.keyreleased(key, scancode)
-  world:callEvent("keyreleased", key, scancode)
-end
-
-function love.textinput(text)
-  world:callEvent("textinput", text)
-end
-
-function love.mousemoved(x, y, dx, dy, is_touch)
-  world:callEvent("mousemoved", x, y, dx, dy, is_touch)
-end
-
-function love.mousepressed(x, y, button, is_touch, presses)
-  world:callEvent("mousepressed", x, y, button, is_touch, presses)
-end
-
-function love.mousereleased(x, y, button, is_touch, presses)
-  world:callEvent("mousereleased", x, y, button, is_touch, presses)
-end
-
-function love.wheelmoved(x, y)
-  world:callEvent("wheelmoved", x, y)
-end
-
+-- These functions need special handling, so they're implemented manually
 function love.joystickadded(joystick)
   actions.joystickadded(joystick)
   world:callEvent("joystickadded", joystick)
@@ -146,4 +155,3 @@ function love.joystickremoved(joystick)
   actions.joystickremoved(joystick)
   world:callEvent("joystickremoved", joystick)
 end
-
