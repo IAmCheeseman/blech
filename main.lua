@@ -22,10 +22,10 @@ tree_sprite:offset("center", "bottom")
 
 local drawTree = function(self)
   love.graphics.setColor(0, 0, 0, 0.2)
-  love.graphics.ellipse("fill", 0, -3, 12, 4)
+  love.graphics.ellipse("fill", 0, 2, 12, 4)
   love.graphics.setColor(1, 1, 1)
   tree_sprite.frame = self.frame
-  tree_sprite:draw(0, 0)
+  tree_sprite:draw(0, 5)
 end
 
 for _=1, 100 do
@@ -39,7 +39,7 @@ for _=1, 100 do
     draw = drawTree,
   }
 
-  obj.body = PhysicsBody(obj, world, shape.offsetRect(-8, -8, 16, 16))
+  obj.body = PhysicsBody(obj, world, shape.offsetCircle(0, 0, 8))
   world:add(obj)
 end
 

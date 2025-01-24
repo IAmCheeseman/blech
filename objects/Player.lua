@@ -15,7 +15,7 @@ function Player:new(x, y)
   self.gun_cd = 0.2
   self.gun_cdt = 0
 
-  self.body = PhysicsBody(self, world, shape.offsetRect(-4, -4, 8, 8))
+  self.body = PhysicsBody(self, world, shape.offsetCircle(0, 0, 4))
 end
 
 function Player:update(dt)
