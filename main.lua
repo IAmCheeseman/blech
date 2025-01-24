@@ -62,45 +62,6 @@ function love.update(dt)
   end
 end
 
-function love.keypressed(key, scancode, is_repeat)
-  world:callEvent("keypressed", key, scancode, is_repeat)
-end
-
-function love.keyreleased(key, scancode)
-  world:callEvent("keyreleased", key, scancode)
-end
-
-function love.textinput(text)
-  world:callEvent("textinput", text)
-end
-
-function love.mousemoved(x, y, dx, dy, is_touch)
-  world:callEvent("mousemoved", x, y, dx, dy, is_touch)
-end
-
-function love.mousepressed(x, y, button, is_touch, presses)
-  world:callEvent("mousepressed", x, y, button, is_touch, presses)
-end
-
-function love.mousereleased(x, y, button, is_touch, presses)
-  world:callEvent("mousereleased", x, y, button, is_touch, presses)
-end
-
-function love.wheelmoved(x, y)
-  world:callEvent("wheelmoved", x, y)
-end
-
-function love.joystickadded(joystick)
-  actions.joystickadded(joystick)
-  world:callEvent("joystickadded", joystick)
-end
-
-function love.joystickremoved(joystick)
-  actions.joystickremoved(joystick)
-  world:callEvent("joystickremoved", joystick)
-end
-
-
 function love.draw()
   viewport:start()
   lg.clear(0.55, 0.8, 0.5)
@@ -147,3 +108,42 @@ function love.draw()
   lg.print(("%d FPS"):format(love.timer.getFPS()), 0, 0)
   lg.print(("%f ms"):format(1 / love.timer.getFPS() * 1000), 0, 12)
 end
+
+function love.keypressed(key, scancode, is_repeat)
+  world:callEvent("keypressed", key, scancode, is_repeat)
+end
+
+function love.keyreleased(key, scancode)
+  world:callEvent("keyreleased", key, scancode)
+end
+
+function love.textinput(text)
+  world:callEvent("textinput", text)
+end
+
+function love.mousemoved(x, y, dx, dy, is_touch)
+  world:callEvent("mousemoved", x, y, dx, dy, is_touch)
+end
+
+function love.mousepressed(x, y, button, is_touch, presses)
+  world:callEvent("mousepressed", x, y, button, is_touch, presses)
+end
+
+function love.mousereleased(x, y, button, is_touch, presses)
+  world:callEvent("mousereleased", x, y, button, is_touch, presses)
+end
+
+function love.wheelmoved(x, y)
+  world:callEvent("wheelmoved", x, y)
+end
+
+function love.joystickadded(joystick)
+  actions.joystickadded(joystick)
+  world:callEvent("joystickadded", joystick)
+end
+
+function love.joystickremoved(joystick)
+  actions.joystickremoved(joystick)
+  world:callEvent("joystickremoved", joystick)
+end
+
