@@ -1,12 +1,15 @@
+love.keyboard.setKeyRepeat(true)
 love.graphics.setLineStyle("rough")
 love.graphics.setDefaultFilter("nearest", "nearest")
 
 require("util")
 require("mathx")
 require("tablex")
+require("stringx")
 require("vec")
 require("class")
 require("shape")
+require("gui")
 
 local loadDirectory = require("loadDirectory")
 loadDirectory("classes")
@@ -47,11 +50,15 @@ world:add(Enemy(64, 10))
 
 world:add(Player(0, 0))
 world:add(Cursor())
+world:add(Console())
 
 function love.update(dt)
   cam:update(dt)
   world:update(dt)
+end
 
+function love.textinput(text)
+  world:callEvent("textinput", text)
 end
 
 function love.wheelmoved(_, y)
@@ -59,12 +66,13 @@ function love.wheelmoved(_, y)
   cam.target_r = cam.target_r + mathx.rad(5) * m
 end
 
-function love.keypressed(key, _, _)
-  if key == "e" then
+function love.keypressed(key, scancode, is_repeat)
+  if key == "e" and not is_repeat then
     cam.target_r = cam.target_r + mathx.pi / 4
-  end
-  if key == "q" then
+  elseif key == "q" and not is_repeat then
     cam.target_r = cam.target_r - mathx.pi / 4
+  else
+    world:callEvent("keypressed", key, scancode, is_repeat)
   end
 end
 

@@ -151,6 +151,13 @@ function World:update(dt)
   end
 end
 
+function World:callEvent(event, ...)
+  local tagged = self:getTagged(event)
+  for _, obj in ipairs(tagged) do
+    obj[event](obj, ...)
+  end
+end
+
 function World:getTagged(tag_name)
   if not self.tags[tag_name] then
     return {}

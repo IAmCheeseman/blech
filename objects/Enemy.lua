@@ -1,6 +1,8 @@
 Enemy = class()
 
 function Enemy:new(x, y)
+  self.tags = {"enemy"}
+
   self.x = x
   self.y = y
 
