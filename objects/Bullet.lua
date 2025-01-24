@@ -14,13 +14,18 @@ function Bullet:new(x, y, speed, dirx, diry)
   self.y = y or 0
   self.speed = speed or 200
   self.lifetime = 3
+
+  self.body = PhysicsBody(self, world, shape.offsetRect(-2, -2, 4, 4))
 end
 
 function Bullet:update(dt)
-  self.x = self.x + self.dirx * self.speed * dt
-  self.y = self.y + self.diry * self.speed * dt
+  local vx, vy = self.dirx * self.speed, self.diry * self.speed
+  local collisions = self.body:getAllCollisions(vx, vy, dt, {"env"})
+  self.x = self.x + vx * dt
+  self.y = self.y + vy * dt
+
   self.lifetime = self.lifetime - dt
-  if self.lifetime < 0 then
+  if self.lifetime < 0 or #collisions ~= 0 then
     world:rem(self)
   end
 end

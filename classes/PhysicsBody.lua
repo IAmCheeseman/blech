@@ -207,6 +207,43 @@ function PhysicsBody:moveAndCollideWithTags(vx, vy, dt, tags)
   return coll
 end
 
+function PhysicsBody:getAllCollisions(vx, vy, dt, tags)
+  local collisions = {}
+  local added_set = {}
+
+  local ax, ay = self.anchor.x, self.anchor.y
+  local movex = vx * dt
+  local movey = vy * dt
+  local resx = ax + movex
+  local resy = ay + movey
+
+  local dist = vec.distance(self.anchor.x, self.anchor.y, resx, resy)
+  local checks = math.ceil(dist / self:_getSmallestSide())
+
+  for i=1, checks do
+    local p = i/checks
+    self.anchor.x = ax + movex * p
+    self.anchor.y = ay + movey * p
+
+    for _, tag in ipairs(tags) do
+      for _, obj in ipairs(world:getTagged(tag)) do
+        local res = self:collideWithBody(obj.body)
+        if res.colliding and not added_set[obj] then
+          added_set[obj] = true
+          res.tag = tag
+          res.obj = obj
+          table.insert(collisions, res)
+        end
+      end
+    end
+  end
+
+  self.anchor.x = ax
+  self.anchor.y = ay
+
+  return collisions
+end
+
 function PhysicsBody:getVertices()
   local vertices = {}
 
