@@ -20,12 +20,19 @@ end
 
 function Bullet:update(dt)
   local vx, vy = self.dirx * self.speed, self.diry * self.speed
-  local collisions = self.body:getAllCollisions(vx, vy, dt, {"env"})
+  local collisions = self.body:getAllCollisions(vx, vy, dt, {"env", "damageable"})
   self.x = self.x + vx * dt
   self.y = self.y + vy * dt
 
+  for _, collision in ipairs(collisions) do
+    if collision.tag == "damageable" then
+      collision.obj:damage(5)
+    end
+    world:rem(self)
+  end
+
   self.lifetime = self.lifetime - dt
-  if self.lifetime < 0 or #collisions ~= 0 then
+  if self.lifetime < 0 then
     world:rem(self)
   end
 end

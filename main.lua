@@ -61,7 +61,9 @@ for _=1, 100 do
   world:add(obj)
 end
 
-world:add(Enemy(64, 10))
+for _=1, 10 do
+  world:add(Enemy(100, 0))
+end
 
 world:add(Player(0, 0))
 world:add(Cursor())
