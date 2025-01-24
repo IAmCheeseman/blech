@@ -17,7 +17,7 @@ function tablex.print(t, i, ts)
 
   i = i or 0
   ts = ts or {}
-  if ts[t] then
+  if ts[t] or i > 2 then
     io.write("{...}")
     return
   end
