@@ -4,4 +4,4 @@ local font_str = " AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZzÑñ01234
 
 ui = {}
 ui.font = lg.newImageFont("assets/font.png", font_str)
-ui.console_font = lg.newFont("assets/nokia.ttf", 8)
+ui.console_font = lg.newFont(24)--lg.newFont("assets/nokia.ttf", 8)

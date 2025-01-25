@@ -21,6 +21,8 @@ loadDirectory("objects")
 cam = Camera()
 viewport = Viewport(cam)
 gui = Viewport()
+debug_vp = Viewport()
+debug_vp:resize(320 * 4, 240 * 4)
 world = World(cam)
 
 walk_up = Action("walk_up", {{method="key", input="w"}})
@@ -51,7 +53,7 @@ end
 
 world:add(Player(0, 0))
 world:add(Cursor())
-world:add(Console())
+local console = Console()
 
 world:add(Path(0, 0))
 
@@ -66,6 +68,8 @@ function love.update(dt)
   if rotate_cam_right:isJustActive() then
     cam.target_r = cam.target_r - mathx.pi / 4
   end
+  
+  console:update(dt)
 end
 
 function love.draw()
@@ -108,15 +112,24 @@ function love.draw()
 
   gui:stop()
 
-  lg.setColor(1, 1, 1)
-  viewport:draw()
-  gui:draw()
+  debug_vp:start()
+
+  lg.clear()
 
   lg.setColor(1, 1, 1)
   local stats = lg.getStats()
   lg.print(("%d FPS"):format(love.timer.getFPS()), 0, 0)
-  lg.print(("%f ms"):format(1 / love.timer.getFPS() * 1000), 0, 12)
-  lg.print(("%d drawcalls"):format(stats.drawcalls), 0, 24)
+  lg.print(("%f ms"):format(1 / love.timer.getFPS() * 1000), 0, 24)
+  lg.print(("%d drawcalls"):format(stats.drawcalls), 0, 48)
+
+  console:gui()
+
+  debug_vp:stop()
+
+  lg.setColor(1, 1, 1)
+  viewport:draw()
+  gui:draw()
+  debug_vp:draw()
 end
 
 local love_callbacks = {
@@ -150,6 +163,7 @@ local love_callbacks = {
 for _, callback in ipairs(love_callbacks) do
   love[callback] = function(...)
     world:callEvent(callback, ...)
+    try(console[callback], console, ...)
   end
 end
 

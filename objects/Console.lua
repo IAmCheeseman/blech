@@ -121,7 +121,7 @@ function Console:gui()
 
   local prompt = ">"
 
-  local w, h = gui.screenw, gui.screenh
+  local w, h = debug_vp.screenw, debug_vp.screenh
   local x, y = font:getWidth(prompt) * 2, h - font:getHeight()
 
   local max_w = w - x
