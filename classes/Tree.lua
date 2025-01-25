@@ -10,7 +10,7 @@ function Tree:new(x, y)
 
   self.sprite = Sprite("assets/tree.ase")
   self.sprite:offset("center", "bottom")
-  self.sprite.frame = love.math.random() > 0.99 and 2 or 1
+  self.sprite.frame = love.math.random() > 0.9 and 2 or 1
 
   self.body = PhysicsBody(self, world, shape.offsetCircle(0, 0, 8))
 end
