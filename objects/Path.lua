@@ -68,16 +68,6 @@ function Path:draw()
   lg.setColor(1, 1, 1)
   lg.draw(self.mesh, 0, 0)
 
-  lg.setColor(1, 0, 0)
-  lg.setLineWidth(1)
-  for i=1, #self.vertices - 1 do
-    local c = self.vertices[i]
-    local n = self.vertices[i+1]
-
-    -- lg.line(c[1], c[2], n[1], n[2])
-    -- lg.circle("fill", c[1], c[2], 3)
-  end
-
   lg.pop()
 end
 
