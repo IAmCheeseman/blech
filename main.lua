@@ -1,4 +1,5 @@
 lg = love.graphics
+lmath = love.math
 
 love.keyboard.setKeyRepeat(true)
 lg.setLineStyle("rough")
@@ -52,7 +53,7 @@ world:add(Player(0, 0))
 world:add(Cursor())
 world:add(Console())
 
-world:add(DirtPatch(0, 0))
+world:add(Path(0, 0))
 
 function love.update(dt)
   actions.update()
@@ -73,11 +74,13 @@ function love.draw()
 
   local cx, cy = cam:p3d(cam.x, cam.y)
   lg.push()
+  lg.setWireframe(console.wireframe or false)
   lg.translate(
     mathx.floor(-cx + viewport.screenw / 2),
     mathx.floor(-cy + viewport.screenh / 2), 0)
   world:draw()
   lg.pop()
+  lg.setWireframe(false)
   viewport:stop()
 
   gui:start()
