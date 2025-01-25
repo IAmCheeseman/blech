@@ -61,7 +61,7 @@ function Player:update(dt)
     self.gun_cdt = self.gun_cd
   end
 
-  if melee:isActive() then
+  if melee:isJustActive() then
     local mdx, mdy = cam:rotateXy(dirx, diry)
     local angle = vec.angle(mdx, mdy)
     world:add(MeleeSwing(self.x, self.y, angle))
