@@ -28,6 +28,7 @@ walk_down = Action("walk_down", {{method="key", input="s"}})
 walk_right = Action("walk_right", {{method="key", input="d"}})
 jump = Action("jump", {{method="key", input="space"}})
 shoot = Action("shoot", {{method="mouse", input=1}})
+melee = Action("melee", {{method="mouse", input=2}})
 rotate_cam_right = Action("rotate_cam_right", {
   {method="key", input="q"},
   {method="mouse", input=5},

@@ -16,6 +16,15 @@ function PhysicsBody:new(anchor, world, shape)
   self.world = world
 end
 
+function PhysicsBody:setShape(shape)
+  self.shape = shape
+
+  -- All these cached values get invalidated when you change shape
+  self.centerx, self.centery = nil, nil
+  self.aabbx, self.aabby = nil, nil
+  self.aabbw, self.aabbh = nil, nil
+end
+
 function PhysicsBody:getAabb()
   if self.aabbx then
     return
@@ -218,7 +227,7 @@ function PhysicsBody:getAllCollisions(vx, vy, dt, tags)
   local resy = ay + movey
 
   local dist = vec.distance(self.anchor.x, self.anchor.y, resx, resy)
-  local checks = math.ceil(dist / self:_getSmallestSide())
+  local checks = math.max(math.ceil(dist / self:_getSmallestSide()), 1)
 
   for i=1, checks do
     local p = i/checks

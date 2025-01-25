@@ -69,6 +69,25 @@ function shape.ellipse(rx, ry, segments)
   return p
 end
 
+function shape.halfEllipse(rx, ry, rot, segments)
+  rot = rot or 0
+  rot = rot - math.pi / 2
+  segments = getSegments(rx, ry, segments)
+  local inc = mathx.pi / segments
+
+  local p = {}
+
+  for i=0, segments do
+    local x = math.cos(i * inc) * rx
+    local y = math.sin(i * inc) * ry
+    x, y = vec.rotate(x, y, rot)
+    table.insert(p, x)
+    table.insert(p, y)
+  end
+
+  return p
+end
+
 function shape.offsetEllipse(x, y, rx, ry, segments)
   segments = getSegments(rx, ry, segments)
   local inc = mathx.tau / segments

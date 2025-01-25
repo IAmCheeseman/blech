@@ -42,8 +42,6 @@ function Player:update(dt)
   self.vy = mathx.dtLerp(self.vy, iy * max_speed, friction, dt)
   self.vz = self.vz + 981 * dt
 
-  -- self.x = self.x + self.vx * dt
-  -- self.y = self.y + self.vy * dt
   self.body:moveAndCollideWithTags(self.vx, self.vy, dt, {"env"})
   self.z = math.min(self.z + self.vz * dt, 0)
 
@@ -53,14 +51,21 @@ function Player:update(dt)
   local sx, sy = cam:xyOnScreen(self.x, self.y)
   local mx, my = love.mouse.getPosition()
   local dirx, diry = vec.direction(sx, sy, mx, my)
+  print(dirx, diry)
 
   self.gun_cdt = self.gun_cdt - dt
 
-  if love.mouse.isDown(1) and self.gun_cdt <= 0 then
+  if shoot:isActive() and self.gun_cdt <= 0 then
     local bdx, bdy = cam:rotateXy(dirx, diry)
     local bullet = Bullet(self.x, self.y, 300, bdx, bdy)
     world:add(bullet)
     self.gun_cdt = self.gun_cd
+  end
+
+  if melee:isActive() then
+    local mdx, mdy = cam:rotateXy(dirx, diry)
+    local angle = vec.angle(mdx, mdy)
+    world:add(MeleeSwing(self.x, self.y, angle))
   end
 
   do -- animation
