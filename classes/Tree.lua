@@ -18,7 +18,7 @@ end
 function Tree:draw(x, y)
   lg.setColor(0, 0, 0, 0.2)
   -- lg.ellipse("fill", x, y + 2, 12, 4)
-  shadow:draw(x, y)
+  shadow:draw(x, y - 4)
   lg.setColor(1, 1, 1)
-  self.sprite:draw(x, y + 8)
+  self.sprite:draw(x, y + 4)
 end
