@@ -52,6 +52,8 @@ world:add(Player(0, 0))
 world:add(Cursor())
 world:add(Console())
 
+world:add(DirtPatch(0, 0))
+
 function love.update(dt)
   actions.update()
   cam:update(dt)

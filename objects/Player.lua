@@ -51,7 +51,6 @@ function Player:update(dt)
   local sx, sy = cam:xyOnScreen(self.x, self.y)
   local mx, my = love.mouse.getPosition()
   local dirx, diry = vec.direction(sx, sy, mx, my)
-  print(dirx, diry)
 
   self.gun_cdt = self.gun_cdt - dt
 

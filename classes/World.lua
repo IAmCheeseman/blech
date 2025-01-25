@@ -185,6 +185,8 @@ function World:draw()
     return self.entitymd[a].zindex < self.entitymd[b].zindex
   end)
 
+  local _, cy = self.cam:p3d(self.cam.x, self.cam.y)
+
   for i, entity in ipairs(self.entities) do
     -- Sorting will mess up the indices, so when we go through to draw them, we
     -- have to correct them
@@ -193,7 +195,13 @@ function World:draw()
     lg.push()
     if not entity.no_transform then
       local dx, dy = self.cam:p3d(entity.x or 0, entity.y or 0, entity.z or 0)
-      self.entitymd[entity].zindex = dy
+      if entity.sort == "floor" then
+        self.entitymd[entity].zindex = cy - 1080
+      elseif entity.sort == "ceiling" then
+        self.entitymd[entity].zindex = cy + 1080
+      else
+        self.entitymd[entity].zindex = dy
+      end
       lg.translate(mathx.round(dx), mathx.round(dy))
     end
     try(entity.draw, entity)
