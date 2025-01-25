@@ -48,7 +48,7 @@ function Enemy:update(dt)
   self.body:moveAndCollideWithTags(self.vx, self.vy, dt, {"env"})
 end
 
-function Enemy:draw()
+function Enemy:draw(x, y)
   lg.setColor(0, 0, 1)
-  lg.rectangle("fill", -4, -8, 8, 8)
+  lg.rectangle("fill", x - 4, y - 8, 8, 8)
 end

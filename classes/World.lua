@@ -192,9 +192,9 @@ function World:draw()
     -- have to correct them
     self.entitymd[entity].index = i
 
-    lg.push()
+    local dx, dy = entity.x or 0, entity.y or 0
     if not entity.no_transform then
-      local dx, dy = self.cam:p3d(entity.x or 0, entity.y or 0, entity.z or 0)
+      dx, dy = self.cam:p3d(entity.x or 0, entity.y or 0, entity.z or 0)
       if entity.sort == "floor" then
         self.entitymd[entity].zindex = cy - 1080
       elseif entity.sort == "ceiling" then
@@ -202,10 +202,9 @@ function World:draw()
       else
         self.entitymd[entity].zindex = dy
       end
-      lg.translate(mathx.round(dx), mathx.round(dy))
+      -- lg.translate(mathx.round(dx), mathx.round(dy))
     end
-    try(entity.draw, entity)
-    lg.pop()
+    try(entity.draw, entity, dx, dy)
   end
 end
 

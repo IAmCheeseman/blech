@@ -81,10 +81,10 @@ function Player:update(dt)
   end
 end
 
-function Player:draw()
+function Player:draw(x, y)
   lg.setColor(0, 0, 0, 0.2)
-  lg.ellipse("fill", 0, 0, 8, 2)
+  lg.ellipse("fill", mathx.floor(x), mathx.floor(y), 8, 2)
   lg.setColor(1, 1, 1)
-  self.sprite:draw(0, self.z, 0, self.sx, 1)
-  lg.line(0, 0, (self.bdx or 0) * 10, (self.bdy or 0) * 10)
+  self.sprite:draw(x, y + self.z, 0, self.sx, 1)
+  -- lg.line(0, 0, (self.bdx or 0) * 10, (self.bdy or 0) * 10)
 end

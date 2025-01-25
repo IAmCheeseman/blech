@@ -28,6 +28,6 @@ function MeleeSwing:update(dt)
   end
 end
 
-function MeleeSwing:draw()
-  self.body:draw()
+function MeleeSwing:draw(x, y)
+  self.body:draw(x, y)
 end

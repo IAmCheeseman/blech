@@ -113,8 +113,10 @@ function love.draw()
   gui:draw()
 
   lg.setColor(1, 1, 1)
+  local stats = lg.getStats()
   lg.print(("%d FPS"):format(love.timer.getFPS()), 0, 0)
   lg.print(("%f ms"):format(1 / love.timer.getFPS() * 1000), 0, 12)
+  lg.print(("%d drawcalls"):format(stats.drawcalls), 0, 24)
 end
 
 local love_callbacks = {

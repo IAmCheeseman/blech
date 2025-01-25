@@ -10,10 +10,10 @@ end
 function console.mpDrawBody(class)
   assert(class.draw, "class needs a draw method to monkey patch collision drawing")
   local old_draw = class.draw
-  class.draw = function(self)
-    old_draw(self)
+  class.draw = function(self, x, y)
+    old_draw(self, x, y)
     if self.body then
-      self.body:draw()
+      self.body:draw(x, y)
     end
 
     if love.keyboard.isDown("lctrl") and love.keyboard.isDown("l") then

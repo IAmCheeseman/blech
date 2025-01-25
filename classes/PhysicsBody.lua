@@ -264,14 +264,14 @@ function PhysicsBody:getVertices()
   return vertices
 end
 
-function PhysicsBody:draw()
+function PhysicsBody:draw(x, y)
   local vertices = {}
 
   for i=1, #self.shape, 2 do
-    local x, y = self.shape[i], self.shape[i+1]
-    x, y = self.world.cam:p3d(x, y)
-    table.insert(vertices, x)
-    table.insert(vertices, y)
+    local px, py = self.shape[i], self.shape[i+1]
+    px, py = self.world.cam:p3d(px, py)
+    table.insert(vertices, x + px)
+    table.insert(vertices, y + py)
   end
 
   lg.setColor(1, 0, 0, 0.5)

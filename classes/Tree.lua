@@ -1,5 +1,8 @@
 Tree = class()
 
+local shadow = Sprite("assets/tree_shadow.png")
+shadow:offset("center", "center")
+
 function Tree:new(x, y)
   self.tags = {"env"}
   self.x = x
@@ -12,9 +15,10 @@ function Tree:new(x, y)
   self.body = PhysicsBody(self, world, shape.offsetCircle(0, 0, 8))
 end
 
-function Tree:draw()
+function Tree:draw(x, y)
   lg.setColor(0, 0, 0, 0.2)
-  lg.ellipse("fill", 0, 2, 12, 4)
+  -- lg.ellipse("fill", x, y + 2, 12, 4)
+  shadow:draw(x, y)
   lg.setColor(1, 1, 1)
-  self.sprite:draw(0, 5)
+  self.sprite:draw(x, y + 8)
 end
