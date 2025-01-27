@@ -4,6 +4,9 @@ function MeleeSwing:new(x, y, r)
   self.x = x
   self.y = y
 
+  self.kbx = mathx.cos(r)
+  self.kby = mathx.sin(r)
+
   self.shape = shape.halfEllipse(15, 30, r)
   self.body = PhysicsBody(self, world, self.shape)
 
@@ -17,7 +20,7 @@ function MeleeSwing:update(dt)
 
   for _, collision in ipairs(collisions) do
     if not self.hitlist[collision.obj] then
-      collision.obj:damage(2)
+      collision.obj:damage(2, self.kbx, self.kby)
       self.hitlist[collision.obj] = true
     end
   end

@@ -26,7 +26,8 @@ function Bullet:update(dt)
 
   for _, collision in ipairs(collisions) do
     if collision.tag == "damageable" then
-      collision.obj:damage(5)
+      local kbx, kby = vec.normalized(self.dirx, self.dirx)
+      collision.obj:damage(5, kbx, kby)
     end
     world:rem(self)
   end

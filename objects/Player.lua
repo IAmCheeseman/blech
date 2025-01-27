@@ -28,7 +28,7 @@ function Player:update(dt)
     if walk_down:isActive() then iy = iy + 1 end
     if walk_right:isActive() then ix = ix + 1 end
 
-    friction = 10
+    friction = 15
     if jump:isJustActive() then
       self.vz = -200
     end
