@@ -1,10 +1,28 @@
 Player = class()
 
+player_data = {}
+
+player_data.max_hp = 10
+player_data.hp = player_data.max_hp
+player_data.ammo_max = {
+  light = 64,
+  heavy = 32,
+  electric = 16,
+  explosive = 8,
+}
+player_data.ammo = {
+  light = 32,
+  heavy = 16,
+  electric = 8,
+  explosive = 4,
+}
+
 function Player:new(x, y)
   self.tags = {"player"}
   self.sprite = Sprite("assets/player.ase")
   self.sprite:setTag("dwalk")
   self.sprite:offset("center", "bottom")
+  self.sprite.layers.hands.visible = false
   self.x = x
   self.y = y
   self.z = 0
@@ -12,10 +30,14 @@ function Player:new(x, y)
   self.vx = 0
   self.vy = 0
   self.vz = 0
-  self.gun_cd = 0.2
-  self.gun_cdt = 0
 
   self.body = PhysicsBody(self, world, shape.offsetCircle(0, 0, 4))
+
+  player_data.obj = self
+end
+
+function Player:added(world)
+  world:add(Gun(self, "pistol"))
 end
 
 function Player:update(dt)
@@ -51,15 +73,6 @@ function Player:update(dt)
   local sx, sy = cam:xyOnScreen(self.x, self.y)
   local mx, my = love.mouse.getPosition()
   local dirx, diry = vec.direction(sx, sy, mx, my)
-
-  self.gun_cdt = self.gun_cdt - dt
-
-  if shoot:isActive() and self.gun_cdt <= 0 then
-    local bdx, bdy = cam:rotateXy(dirx, diry)
-    local bullet = Bullet(self.x, self.y, 300, bdx, bdy)
-    world:add(bullet)
-    self.gun_cdt = self.gun_cd
-  end
 
   if melee:isJustActive() then
     local mdx, mdy = cam:rotateXy(dirx, diry)

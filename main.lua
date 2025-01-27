@@ -18,6 +18,8 @@ local loadDirectory = require("loadDirectory")
 loadDirectory("classes")
 loadDirectory("objects")
 
+require("weapons")
+
 cam = Camera()
 viewport = Viewport(cam)
 gui = Viewport()

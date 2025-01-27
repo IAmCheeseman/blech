@@ -118,6 +118,8 @@ function World:_flushAddQueue()
       end
       entity.tags = nil
     end
+
+    try(entity.added, entity, self)
   end
   self.addq = {}
 end
@@ -126,6 +128,8 @@ function World:_flushRemQueue()
   for _, entity in ipairs(self.remq) do
     local md = self.entitymd[entity]
     assert(md, "cannot remove entity not in world")
+
+    try(entity.removed, entity, self)
 
     for tag_name, _ in pairs(md.tags) do
       self:_removeTag(entity, tag_name)
