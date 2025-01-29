@@ -35,9 +35,8 @@ function Gun:update(dt)
     local bdx, bdy = cam:rotateXy(dirx, diry)
     local x = self.x + bdx * self.weapon.barrel_length
     local y = self.y + bdy * self.weapon.barrel_length
-    local bullet = Bullet(x, y, 300, bdx, bdy)
-    world:add(bullet)
 
+    self.weapon.shoot(self, x, y, bdx, bdy)
     self.cooldown = self.weapon.cooldown
   end
 end

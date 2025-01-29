@@ -14,20 +14,21 @@ function Bullet:new(x, y, speed, dirx, diry)
   self.y = y or 0
   self.speed = speed or 200
   self.lifetime = 3
+  self.damage = 1
 
   self.body = PhysicsBody(self, world, shape.offsetRect(-2, -2, 4, 4))
 end
 
 function Bullet:update(dt)
   local vx, vy = self.dirx * self.speed, self.diry * self.speed
-  local collisions = self.body:getAllCollisions(vx, vy, dt, {"env", "damageable"})
+  local collisions = self.body:getAllCollisions(vx, vy, dt, {"damageable", "env"})
   self.x = self.x + vx * dt
   self.y = self.y + vy * dt
 
   for _, collision in ipairs(collisions) do
     if collision.tag == "damageable" then
       local kbx, kby = vec.normalized(self.dirx, self.dirx)
-      collision.obj:damage(5, kbx, kby)
+      collision.obj:damage(self.damage, kbx, kby)
     end
     world:rem(self)
   end

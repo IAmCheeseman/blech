@@ -13,12 +13,12 @@ require("vec")
 require("class")
 require("shape")
 require("gui")
+require("weapons")
 
 local loadDirectory = require("loadDirectory")
 loadDirectory("classes")
 loadDirectory("objects")
-
-require("weapons")
+loadDirectory("weapons")
 
 cam = Camera()
 viewport = Viewport(cam)
