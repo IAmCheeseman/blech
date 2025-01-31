@@ -1,8 +1,12 @@
 MeleeSwing = class()
 
+local sword_swing_sprite = Sprite("assets/sword_swing.ase")
+sword_swing_sprite:offset("left", "center")
+
 function MeleeSwing:new(x, y, r)
   self.x = x
   self.y = y
+  self.r = r
 
   self.kbx = mathx.cos(r)
   self.kby = mathx.sin(r)
@@ -10,7 +14,8 @@ function MeleeSwing:new(x, y, r)
   self.shape = shape.halfEllipse(15, 30, r)
   self.body = PhysicsBody(self, world, self.shape)
 
-  self.timer = 0.2
+  self.lifetime = 0.2
+  self.timer = self.lifetime
 
   self.hitlist = {}
 end
@@ -32,5 +37,22 @@ function MeleeSwing:update(dt)
 end
 
 function MeleeSwing:draw(x, y)
-  self.body:draw(x, y)
+  local frame = mathx.ceil((1 - self.timer / self.lifetime) * (#sword_swing_sprite.frames - 1))
+  sword_swing_sprite.frame = frame
+
+  lg.push()
+  lg.translate(x, y)
+  lg.scale(1, -0.5)
+  lg.rotate(cam.r)
+  lg.setColor(0, 0, 0, 0.25)
+  sword_swing_sprite:draw(0, 0, self.r - math.pi / 2)
+  lg.pop()
+
+  lg.push()
+  lg.translate(x, y - 5)
+  lg.scale(1, -0.5)
+  lg.rotate(cam.r)
+  lg.setColor(1, 1, 1)
+  sword_swing_sprite:draw(0, 0, self.r - math.pi / 2)
+  lg.pop()
 end
