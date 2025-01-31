@@ -7,6 +7,10 @@ local chunk_tag_data = 0x2018
 
 local atlas = TextureAtlas(512, 512)
 
+function drawTextureAtlas(x, y)
+  lg.draw(atlas.canvas, x, y)
+end
+
 Sprite = class()
 
 function Sprite:new(path)

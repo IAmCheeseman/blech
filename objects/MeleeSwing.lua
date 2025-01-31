@@ -1,5 +1,7 @@
 MeleeSwing = class()
 
+local knife_sprite = Sprite("assets/knife.png")
+knife_sprite:offset("center", "bottom")
 local sword_swing_sprite = Sprite("assets/sword_swing.ase")
 sword_swing_sprite:offset("left", "center")
 
@@ -39,6 +41,17 @@ end
 function MeleeSwing:draw(x, y)
   local frame = mathx.ceil((1 - self.timer / self.lifetime) * (#sword_swing_sprite.frames - 1))
   sword_swing_sprite.frame = frame
+
+  do
+    local scaley = self.timer < self.lifetime * 0.5 and 1 or -1
+    local dirx = mathx.cos(self.r) * 8
+    local diry = mathx.sin(self.r) * 8
+    dirx, diry = cam:rotateXy(dirx, diry)
+    local r = vec.angle(dirx, diry)
+    local kx = x + dirx
+    local ky = y + diry
+    knife_sprite:draw(kx, ky -8, r, 1, scaley)
+  end
 
   lg.push()
   lg.translate(x, y)

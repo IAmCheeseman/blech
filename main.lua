@@ -85,6 +85,7 @@ function love.draw()
     mathx.floor(-cx + viewport.screenw / 2),
     mathx.floor(-cy + viewport.screenh / 2), 0)
   world:draw()
+  drawTextureAtlas(0, 0)
   lg.pop()
   lg.setWireframe(false)
   viewport:stop()
@@ -116,7 +117,7 @@ function love.draw()
 
   debug_vp:start()
 
-  lg.clear()
+  lg.clear(0, 0, 0, 0)
 
   lg.setColor(1, 1, 1)
   local stats = lg.getStats()
